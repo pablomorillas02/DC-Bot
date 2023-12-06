@@ -1,18 +1,34 @@
 import asyncio
 import discord
-import respuestas   
-import chistes   
+import respuestas
+import chistes
+import random   
 
 # Esta función obtiene el token desde un fichero de texto externo 
 def get_token() -> str:
-    with open('info-bot.txt' , 'r') as f:
+    with open('data/bot-info.txt' , 'r') as f:
         content = f.readline()
     
     return content
+
+# Esta función extrae todas las configuraciones temporales y probabilísticas de un fichero de texto externo
+def get_config():
+    with open('data/config.txt', 'r') as f:
+        lines = f.readlines()
+        
+        for line in lines:
+            if 'jokes_trigger' in line:
+                jokes_trigger = int(line.split("=")[1].strip())
+    
+    return jokes_trigger
+            
         
 def run_discord_bot():
     # Variables para la ejecución
     TOKEN = get_token() # Token del bot
+    # Variables adicionales
+    jokes_trigger = get_config()
+    
     # Creación del cliente
     intents = discord.Intents.default()
     intents.message_content = True
@@ -20,7 +36,7 @@ def run_discord_bot():
     
     print(f'Poniendo en marcha... {TOKEN}')
     
-    # Lógica del bot debajo
+    # Lógica del bot debajo # 
     
     # Este trozo de código espera un tiempo determinado para contar un chiste
     async def send_joke():
@@ -31,12 +47,17 @@ def run_discord_bot():
         while True: # Este bucle espera el tiempo estipulado
             joke = await chistes.get_joke()
         
-            if channel:
-                if joke is not None:
-                    await channel.send(joke)
+            roll = random.randint(1, jokes_trigger) # probabilidad de que se mande el chiste
+        
+            if roll == 1:
+                print(f'Se va mandar un chiste (probabilidad de 1 sobre {jokes_trigger})')
+                if channel:
+                    if joke is not None:
+                        await channel.send(joke)
                 
             await asyncio.sleep(time)
     
+    # Evento de arranque
     @client.event
     async def on_ready():
         print(f'{client.user} está funcionando')
@@ -44,6 +65,7 @@ def run_discord_bot():
         # loop para el envío de chistes
         client.loop.create_task(send_joke())
     
+    # Evento para mandar un mensaje si se manda uno en concreto
     @client.event
     async def on_message(message):
         if message.author == client.user:
@@ -64,7 +86,7 @@ def run_discord_bot():
 # Esta función manda un mensaje en función del mensaje que reciba
 async def send_message(message, user_message):
     try:
-        response = respuestas.handle_response(user_message)
+        response = await respuestas.handle_response(user_message)
         if response is not None: 
             await message.channel.send(response)
     except Exception as e:

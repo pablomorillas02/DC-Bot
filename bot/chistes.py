@@ -3,7 +3,7 @@ import random
 
 async def get_joke() -> str:
     try:
-        with open('jokes.txt', 'r', encoding='utf-8') as file:
+        with open('data/jokes.txt', 'r', encoding='utf-8') as file:
             lines = file.readlines()
 
         if lines:
