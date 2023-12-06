@@ -1,2 +1,3 @@
-MTE4MTkwOTgyNDU1NzAzOTc0Ng.GK333k.zKx6iysQmwk7hnLgHMXxCRZgi1XDTJ5oCQ-NWc
+token = MTE4MTkwOTgyNDU1NzAzOTc0Ng.GK333k.zKx6iysQmwk7hnLgHMXxCRZgi1XDTJ5oCQ-NWc
+channel_id = 1181912230871191575
 link = https://discord.com/api/oauth2/authorize?client_id=1181909824557039746&permissions=2183991392320&scope=bot

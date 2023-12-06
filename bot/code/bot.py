@@ -4,13 +4,6 @@ import respuestas
 import chistes
 import random   
 
-# Esta función obtiene el token desde un fichero de texto externo 
-def get_token() -> str:
-    with open('data/bot-info.txt' , 'r') as f:
-        content = f.readline()
-    
-    return content
-
 # Esta función extrae todas las configuraciones temporales y probabilísticas de un fichero de texto externo
 def get_config():
     with open('data/config.txt', 'r') as f:
@@ -19,15 +12,15 @@ def get_config():
         for line in lines:
             if 'jokes_trigger' in line:
                 jokes_trigger = int(line.split("=")[1].strip())
+            if 'time' in line:
+                time = int(line.split("=")[1].strip())
     
-    return jokes_trigger
+    return jokes_trigger, time
             
         
-def run_discord_bot():
-    # Variables para la ejecución
-    TOKEN = get_token() # Token del bot
-    # Variables adicionales
-    jokes_trigger = get_config()
+def run_discord_bot(TOKEN, CHANNEL_ID):
+    # Variables configurables
+    jokes_trigger, time = get_config()
     
     # Creación del cliente
     intents = discord.Intents.default()
@@ -40,8 +33,7 @@ def run_discord_bot():
     
     # Este trozo de código espera un tiempo determinado para contar un chiste
     async def send_joke():
-        time = 2 # tiempo en segundos
-        channel_id = 1181912230871191575 # esto hay que ir cambiándolo en función del canal
+        channel_id = int(CHANNEL_ID) # esto hay que ir cambiándolo en función del canal
         channel = client.get_channel(channel_id)
         
         while True: # Este bucle espera el tiempo estipulado

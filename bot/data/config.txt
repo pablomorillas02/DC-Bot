@@ -1,1 +1,2 @@
-jokes_trigger = 100
+jokes_trigger = 25
+time = 60
