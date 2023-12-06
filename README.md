@@ -8,7 +8,7 @@ Pues bien, cada cierto tiempo, se lanzará un dado de un número de caras determ
 Posteriormente se explicará como configurar dichos parámetros.
 
 ## Preparación y ejecución
-Para poder ejecutar tu propia versión del bot tendrás que generar un token y un link de invitación al servidor, dentro de los archivos ya se encuentra un token y un link de invitación.
+Para poder ejecutar tu propia versión del bot tendrás que generar un token y un link de invitación al servidor, dentro de los archivos ya se encuentra un token (inservible, tienes que generar uno propio y mantenerlo privado) y un link de invitación.
 
 Una vez hayas añadido el bot a tu servidor, tendrás que copiar el ID del canal y el token del bot y pegarlos en el archivo batch de la siguiente forma:
 > python /code/main.py TOKEN CHANNEL_ID
