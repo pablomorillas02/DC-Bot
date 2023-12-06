@@ -5,8 +5,8 @@ import chistes
 
 # Esta función obtiene el token desde un fichero de texto externo 
 def get_token() -> str:
-    f = open('info-bot.txt' , 'r')
-    content = f.readline()
+    with open('info-bot.txt' , 'r') as f:
+        content = f.readline()
     
     return content
         
@@ -29,10 +29,11 @@ def run_discord_bot():
         channel = client.get_channel(channel_id)
         
         while True: # Este bucle espera el tiempo estipulado
-            chiste = await chistes.get_joke()
+            joke = await chistes.get_joke()
         
             if channel:
-                await channel.send(chiste)
+                if joke is not None:
+                    await channel.send(joke)
                 
             await asyncio.sleep(time)
     
