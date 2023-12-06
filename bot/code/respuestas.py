@@ -31,4 +31,4 @@ async def handle_response(message: str) -> str:
         return await chistes.get_joke()
     
     if text == '_help':
-        return '`Soy un bot creador por Pablo, lo único que hago es poner chistes cada cierto tiempo y contestar a algunos mensajes.`'
+        return '`Soy un bot creador por Pablo, lo único que hago es poner chistes ("_chiste" si quieres uno ya) cada cierto tiempo y contestar a algunos mensajes.`'
